@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#121212">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>Energy | Well-being | Direction</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ═══ LANDING ═══ -->
+  <div id="screen-landing" class="screen active">
+    <div class="landing-content">
+      <div class="landing-identity">Energy &nbsp;|&nbsp; Well-being &nbsp;|&nbsp; Direction</div>
+
+      <h1 class="landing-tagline">Honour your rhythm.</h1>
+
+      <p class="landing-philosophy">
+        You were born with internal signals.<br>
+        They guide your energy, your well-being,<br>
+        and the direction of your life.<br><br>
+        But modern life pulls you outward.<br>
+        Slowly, without noticing, you stop trusting<br>
+        what you feel inside.<br><br>
+        This is the practice of coming back.
+      </p>
+
+      <button class="btn-primary" onclick="showScreen('setup')">Begin</button>
+
+      <p class="landing-privacy">No sign-ups. No data leaves your device.</p>
+    </div>
+  </div>
+
+  <!-- ═══ SETUP: ANCHOR ═══ -->
+  <div id="screen-setup" class="screen">
+    <div class="screen-content">
+      <div class="identity" style="margin-bottom: var(--space-xl);">Setup</div>
+
+      <div class="setup-section">
+        <div class="setup-label">Your anchor question</div>
+        <div class="setup-sublabel">
+          This is the one question you answer first every evening.
+          It becomes the thread that ties everything together.
+          Review all the options and pick something that feels right and meaningful for you. Also feel free to write your own.
+        </div>
+        <div id="anchor-options-list"></div>
+      </div>
+
+      <div class="setup-actions">
+        <button class="btn-primary" onclick="showScreen('setup-dimensions')">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SETUP: DIMENSIONS ═══ -->
+  <div id="screen-setup-dimensions" class="screen">
+    <div class="screen-content">
+      <div class="identity" style="margin-bottom: var(--space-xl);">Setup</div>
+
+      <div class="setup-section">
+        <div class="setup-label">Your dimensions <span id="dim-count-label" style="color: var(--text-muted); font-size: 0.85rem;"></span></div>
+        <div class="setup-sublabel" id="dim-sublabel">
+          Rate how important you believe each one is to your anchor question.
+        </div>
+        <div id="dimension-setup-list"></div>
+        <button class="add-dim-btn" id="add-dim-btn" onclick="showAddDimension()">+ Add your own dimension</button>
+        <div class="custom-dim-form" id="custom-dim-form" style="display: none;">
+          <input type="text" id="custom-dim-name" placeholder="Dimension name (e.g. Faith, Adventure, Learning)">
+          <input type="text" id="custom-dim-question" placeholder="Daily question (e.g. Did I learn something new today?)">
+          <div style="display: flex; gap: 8px; margin-top: 8px;">
+            <button class="btn-primary" style="flex: 1; padding: 10px;" onclick="addCustomDimension()">Add</button>
+            <button class="btn-ghost" onclick="hideAddDimension()">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="setup-actions">
+        <button class="btn-primary" onclick="startWithDemoData()">Explore with demo data</button>
+        <button class="btn-secondary" onclick="startFresh()">Start fresh</button>
+        <button class="btn-ghost" onclick="showScreen('setup')" style="margin-top: var(--space-xs);">&larr; Back to anchor question</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ CHECK-IN ═══ -->
+  <div id="screen-checkin" class="screen">
+    <div class="checkin-container" id="checkin-container">
+      <!-- Content rendered dynamically -->
+    </div>
+  </div>
+
+  <!-- ═══ DASHBOARD ═══ -->
+  <div id="screen-dashboard" class="screen">
+    <div class="screen-content">
+      <div class="identity" style="margin-bottom: var(--space-lg);">Today</div>
+
+      <div class="dashboard-header">
+        <div class="anchor-question-label" id="dash-anchor-question"></div>
+        <div class="anchor-score-large" id="dash-anchor-score">—</div>
+        <div class="anchor-label" id="dash-anchor-label">Your anchor today</div>
+      </div>
+
+      <!-- Dimensions listed with names and scores -->
+      <div class="card">
+        <div class="card-title">Your dimensions today</div>
+        <div class="dimension-row" id="dash-dim-row"></div>
+      </div>
+
+      <!-- Weekly rhythm -->
+      <div class="card">
+        <div class="card-title">Your anchor score — last 4 weeks</div>
+        <div class="heatmap-grid" id="dash-heatmap"></div>
+        <div class="heatmap-legend">
+          <span class="heatmap-legend-label">Low</span>
+          <div class="heatmap-legend-cell" style="background: rgba(255, 187, 0, 0.1);"></div>
+          <div class="heatmap-legend-cell" style="background: rgba(255, 187, 0, 0.25);"></div>
+          <div class="heatmap-legend-cell" style="background: rgba(255, 187, 0, 0.45);"></div>
+          <div class="heatmap-legend-cell" style="background: rgba(255, 187, 0, 0.7);"></div>
+          <div class="heatmap-legend-cell" style="background: #ffbb00;"></div>
+          <span class="heatmap-legend-label">High</span>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row" style="margin-top: 4px;">
+        <div class="stat-card">
+          <div class="stat-value" id="dash-total">0</div>
+          <div class="stat-label">Days logged</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="dash-avg">—</div>
+          <div class="stat-label">Average anchor</div>
+        </div>
+      </div>
+
+      <!-- Check-in CTA -->
+      <div class="checkin-cta" id="dash-checkin-cta">
+        <button class="btn-primary" onclick="startCheckIn()">Check in now</button>
+      </div>
+
+      <!-- Settings -->
+      <div style="text-align: center; margin-top: var(--space-lg);">
+        <button class="btn-ghost" onclick="goToSetup()" style="margin-right: var(--space-sm);">Edit setup</button>
+        <button class="btn-ghost" onclick="resetApp()" style="color: var(--text-faint);">Start over</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ INSIGHTS ═══ -->
+  <div id="screen-insights" class="screen">
+    <div class="screen-content">
+      <div class="identity" style="margin-bottom: var(--space-lg);">Insights</div>
+
+      <div class="insight-header">
+        <h2>What your days reveal</h2>
+        <p class="insight-framing">
+          Each dimension is shown with the importance you gave it
+          alongside its actual role in driving your anchor score.
+          When a dimension moves in sync with your anchor, it suggests
+          a strong connection. Where importance and role diverge,
+          there's something worth exploring.
+        </p>
+      </div>
+
+      <!-- Dimension panels rendered dynamically -->
+      <div id="insight-panels"></div>
+
+      <p class="methodology-note">
+        The chart in each panel shows how your dimension score (coloured line)
+        tracks alongside your anchor score (dashed line). When the two lines
+        move together, the connection is strong. When they drift apart,
+        the dimension plays less of a role in how you feel overall.
+      </p>
+    </div>
+  </div>
+
+  <!-- ═══ DIMENSION DETAIL ═══ -->
+  <div id="screen-detail" class="screen">
+    <div class="screen-content">
+      <div class="detail-back">
+        <button class="btn-ghost" onclick="showScreen('insights')">&larr; Back to insights</button>
+      </div>
+
+      <div class="detail-header">
+        <div class="detail-pillar" id="detail-pillar"></div>
+        <div class="detail-dim-name" id="detail-name"></div>
+      </div>
+
+      <!-- Time series -->
+      <div class="card">
+        <div class="card-title">90-day pattern</div>
+        <div class="chart-container" style="height: 220px;">
+          <canvas id="detail-timeseries"></canvas>
+        </div>
+      </div>
+
+      <!-- Day of week -->
+      <div class="card">
+        <div class="card-title">Day of week</div>
+        <div class="chart-container" style="height: 200px;">
+          <canvas id="detail-dow"></canvas>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row" style="margin-top: 4px;">
+        <div class="stat-card">
+          <div class="stat-value" id="detail-avg">—</div>
+          <div class="stat-label">Average</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="detail-cor">—</div>
+          <div class="stat-label">Correlation</div>
+        </div>
+      </div>
+
+      <!-- Best/worst week -->
+      <div class="card" style="margin-top: 4px;" id="detail-weeks-card">
+        <div style="display: flex; justify-content: space-between;">
+          <div>
+            <div class="card-title">Best week</div>
+            <div id="detail-best-week" style="font-size: 0.9rem;">—</div>
+          </div>
+          <div style="text-align: right;">
+            <div class="card-title">Hardest week</div>
+            <div id="detail-worst-week" style="font-size: 0.9rem;">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ TAB BAR ═══ -->
+  <nav class="tab-bar" id="tab-bar">
+    <button class="tab-btn active" data-tab="dashboard" onclick="showTab('dashboard')">Today</button>
+    <button class="tab-btn" data-tab="insights" onclick="showTab('insights')">Insights</button>
+    <button class="tab-btn" data-tab="checkin" onclick="startCheckIn()">Check in</button>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/seed-data.js"></script>
+  <script src="js/calculations.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

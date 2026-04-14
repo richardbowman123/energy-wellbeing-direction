@@ -163,7 +163,7 @@ h3 { font-size: 1.25rem; }
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--text-muted);
-  margin-bottom: var(--space-xxl);
+  margin-bottom: var(--space-md);
 }
 
 .landing-tagline {

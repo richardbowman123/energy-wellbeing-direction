@@ -303,6 +303,9 @@ function renderCheckinStep() {
         <div style="margin-top: var(--space-xl);">
           <button class="btn-secondary" onclick="showScreen('dashboard')">View today</button>
         </div>
+        <div style="margin-top: var(--space-sm);">
+          <button class="btn-ghost" onclick="showScreen('insights')">View historic data (DUMMY MODE)</button>
+        </div>
       </div>
     `;
   }
@@ -444,13 +447,16 @@ function renderDashboard() {
   document.getElementById('dash-total').textContent = currentEntries.length;
   document.getElementById('dash-avg').textContent = anchorStats.avg ? anchorStats.avg.toFixed(1) : '—';
 
-  // Check-in CTA
+  // Check-in CTA — always offers a peek at the populated demo Insights above
   const cta = document.getElementById('dash-checkin-cta');
+  const demoBtn = `<div style="margin-bottom: var(--space-sm);">
+      <button class="btn-ghost" onclick="showScreen('insights')">View historic data (DUMMY MODE)</button>
+    </div>`;
   if (todayEntry) {
-    cta.innerHTML = `<p class="dim small">You've checked in today.</p>
+    cta.innerHTML = demoBtn + `<p class="dim small">You've checked in today.</p>
       <button class="btn-ghost" style="margin-top: var(--space-xs);" onclick="startCheckIn()">Update today's entry</button>`;
   } else {
-    cta.innerHTML = `<button class="btn-primary" onclick="startCheckIn()">Check in now</button>`;
+    cta.innerHTML = demoBtn + `<button class="btn-primary" onclick="startCheckIn()">Check in now</button>`;
   }
 }
 

@@ -304,7 +304,7 @@ function renderCheckinStep() {
           <button class="btn-secondary" onclick="showScreen('dashboard')">View today</button>
         </div>
         <div style="margin-top: var(--space-sm);">
-          <button class="btn-ghost" onclick="showScreen('insights')">View historic data (DUMMY MODE)</button>
+          <button class="btn-secondary" onclick="showScreen('insights')">View historic data (DUMMY MODE)</button>
         </div>
       </div>
     `;
@@ -450,7 +450,7 @@ function renderDashboard() {
   // Check-in CTA — always offers a peek at the populated demo Insights above
   const cta = document.getElementById('dash-checkin-cta');
   const demoBtn = `<div style="margin-bottom: var(--space-sm);">
-      <button class="btn-ghost" onclick="showScreen('insights')">View historic data (DUMMY MODE)</button>
+      <button class="btn-secondary" onclick="showScreen('insights')">View historic data (DUMMY MODE)</button>
     </div>`;
   if (todayEntry) {
     cta.innerHTML = demoBtn + `<p class="dim small">You've checked in today.</p>

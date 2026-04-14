@@ -78,7 +78,6 @@ function renderAnchorOptions() {
   input.style.display = !isPreset ? 'block' : 'none';
   input.oninput = () => {
     currentConfig.anchorQuestion = input.value;
-    updateDimSublabel();
   };
   list.appendChild(input);
 }
@@ -92,8 +91,6 @@ function selectAnchor(option) {
   });
   document.getElementById('anchor-custom-btn').classList.remove('selected');
   document.getElementById('anchor-custom-input').style.display = 'none';
-
-  updateDimSublabel();
 }
 
 function showCustomAnchor() {
@@ -104,13 +101,6 @@ function showCustomAnchor() {
   input.focus();
   if (input.value) {
     currentConfig.anchorQuestion = input.value;
-  }
-}
-
-function updateDimSublabel() {
-  const sublabel = document.getElementById('dim-sublabel');
-  if (sublabel) {
-    sublabel.textContent = `Use the slider (0 = not important, 5 = essential) to rate how important you believe each one is to your anchor: "${currentConfig.anchorQuestion}"`;
   }
 }
 
@@ -146,8 +136,6 @@ function renderDimensionSetup() {
     `;
     list.appendChild(card);
   }
-
-  updateDimSublabel();
 }
 
 function updateImportance(dimId, value) {

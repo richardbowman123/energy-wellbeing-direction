@@ -141,12 +141,19 @@ h3 { font-size: 1.25rem; }
 .landing-content {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
   min-height: 100vh;
   min-height: 100dvh;
-  padding: var(--space-xl) var(--space-md);
+  padding: var(--space-xxl) var(--space-md) var(--space-xl);
+}
+
+.landing-logo {
+  width: 140px;
+  height: auto;
+  display: block;
+  margin-bottom: var(--space-xl);
 }
 
 .landing-identity {

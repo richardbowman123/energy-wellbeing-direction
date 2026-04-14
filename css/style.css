@@ -301,42 +301,23 @@ h3 { font-size: 1.25rem; }
   border-color: var(--cream);
 }
 
-/* Dimension setup card */
+/* Setup intro paragraph (above dim list) */
+.setup-intro {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: var(--space-sm) 0 var(--space-md) 0;
+}
+
+/* Dimension setup card — stacked: info on top, slider full-width below */
 .dim-setup-card {
   background: var(--bg-card);
   border-radius: var(--radius);
   padding: var(--space-md);
   margin-bottom: 10px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: var(--space-sm);
-}
-
-.dim-toggle {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  border: 2px solid var(--border-light);
-  background: none;
-  cursor: pointer;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-}
-
-.dim-toggle.on {
-  background: var(--accent);
-  border-color: var(--accent);
-}
-
-.dim-toggle.on::after {
-  content: '';
-  width: 10px;
-  height: 10px;
-  background: var(--bg);
-  border-radius: 3px;
 }
 
 .dim-info {
@@ -359,23 +340,25 @@ h3 { font-size: 1.25rem; }
 
 .dim-importance {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
+  gap: var(--space-sm);
+  width: 100%;
 }
 
 .dim-importance-value {
   font-family: var(--sans);
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: var(--accent);
   width: 24px;
   text-align: center;
+  flex-shrink: 0;
 }
 
 .dim-importance input[type="range"] {
-  width: 80px;
+  flex: 1;
+  width: auto;
   -webkit-appearance: none;
   appearance: none;
   height: 4px;

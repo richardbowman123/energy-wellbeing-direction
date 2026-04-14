@@ -24,7 +24,8 @@ function generateDemoData() {
     purpose: 4,
     making: 1,        // LOW claimed, HIGH actual (the big reveal)
     character: 4,
-    ground: 2          // MEDIUM claimed, high actual
+    ground: 2,        // MEDIUM claimed, high actual
+    spirit: 1         // LOW claimed, moderate-high actual (a quieter reveal)
   };
 
   // Base patterns for anchor score (1-5)
@@ -83,6 +84,12 @@ function generateDemoData() {
     const groundDip = (day >= 35 && day <= 50) ? -0.8 : 0;
     scores.ground = generateCorrelated(anchor, 0.62, 3.3, rng, groundDip);
 
+    // Spirit: r≈0.55 — claimed only 1 but quietly meaningful
+    // Lifts on weekends (more space to reflect/practice), dips during stress period
+    const spiritWeekendLift = (dow === 0) ? 0.5 : 0;
+    const spiritStressDip = (day >= 35 && day <= 50) ? -0.4 : 0;
+    scores.spirit = generateCorrelated(anchor, 0.55, 2.7, rng, spiritWeekendLift + spiritStressDip);
+
     entries.push({
       date: dateKey,
       anchor: anchor,
@@ -134,6 +141,9 @@ function generateNote(day, anchor, scores, rng) {
     'Meditation helped. Even just 10 minutes.',
     'Financial clarity after sorting the budget.',
     'Wrote for two hours. Lost track of time.',
+    'Walked alone in the woods. Felt held by something bigger.',
+    'Sat with a piece of music. Time slowed.',
+    'Lit a candle this evening. Small ritual, real shift.',
   ];
 
   return notes[Math.floor(rng() * notes.length)];

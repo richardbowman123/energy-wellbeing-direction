@@ -2,7 +2,7 @@
 
 const PILLARS = {
   energy: { name: 'Energy', dimensions: ['body', 'stillness'] },
-  wellbeing: { name: 'Well-being', dimensions: ['connection', 'character', 'ground'] },
+  wellbeing: { name: 'Well-being', dimensions: ['connection', 'character', 'ground', 'spirit'] },
   direction: { name: 'Direction', dimensions: ['purpose', 'making'] }
 };
 
@@ -73,15 +73,25 @@ const DIMENSIONS = {
     id: 'ground',
     name: 'Ground',
     pillar: 'wellbeing',
-    importanceQuestion: 'How important is it that you feel like you\'re standing on solid ground?',
-    dailyQuestion: 'Do you feel like you\'re standing on solid ground?',
+    importanceQuestion: 'How important is it that you feel inwardly steady, whatever the day throws at you?',
+    dailyQuestion: 'Did you feel inwardly steady today, whatever the day threw at you?',
     color: '#A0E8D0',
+    defaultImportance: 0,
+    isCustom: false
+  },
+  spirit: {
+    id: 'spirit',
+    name: 'Spirit',
+    pillar: 'wellbeing',
+    importanceQuestion: 'How important is it that you feel connected to something larger than yourself?',
+    dailyQuestion: 'Did you feel connected to something larger than yourself today?',
+    color: '#B8A0E8',
     defaultImportance: 0,
     isCustom: false
   }
 };
 
-const DIMENSION_ORDER = ['body', 'stillness', 'connection', 'purpose', 'making', 'character', 'ground'];
+const DIMENSION_ORDER = ['body', 'stillness', 'connection', 'purpose', 'making', 'character', 'ground', 'spirit'];
 
 // 0-5 scale
 const SCORE_LABELS = {

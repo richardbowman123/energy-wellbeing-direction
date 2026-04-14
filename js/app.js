@@ -125,49 +125,29 @@ function renderDimensionSetup() {
     const dim = DIMENSIONS[dimId];
     if (!dim) continue;
 
-    const enabled = currentConfig.enabledDimensions.includes(dimId);
+    // No toggle now — every displayed dimension is enabled
+    if (!currentConfig.enabledDimensions.includes(dimId)) {
+      currentConfig.enabledDimensions.push(dimId);
+    }
     const importance = currentConfig.importance[dimId] != null ? currentConfig.importance[dimId] : 0;
 
     const card = document.createElement('div');
     card.className = 'dim-setup-card';
     card.innerHTML = `
-      <button class="dim-toggle ${enabled ? 'on' : ''}" data-dim="${dimId}" onclick="toggleDimension('${dimId}', this)"></button>
       <div class="dim-info">
         <div class="dim-name" style="color: ${dim.color}">${dim.name}</div>
         <div class="dim-question">${dim.importanceQuestion || dim.dailyQuestion}</div>
       </div>
       <div class="dim-importance">
-        <div class="dim-importance-value" id="imp-val-${dimId}">${importance}</div>
         <input type="range" min="0" max="5" value="${importance}"
                oninput="updateImportance('${dimId}', this.value)">
+        <div class="dim-importance-value" id="imp-val-${dimId}">${importance}</div>
       </div>
     `;
     list.appendChild(card);
   }
 
-  // Update count label
-  updateDimCountLabel();
   updateDimSublabel();
-}
-
-function updateDimCountLabel() {
-  const label = document.getElementById('dim-count-label');
-  if (label) {
-    const count = currentConfig.enabledDimensions.length;
-    label.textContent = `(${count} active)`;
-  }
-}
-
-function toggleDimension(dimId, btn) {
-  const idx = currentConfig.enabledDimensions.indexOf(dimId);
-  if (idx >= 0) {
-    currentConfig.enabledDimensions.splice(idx, 1);
-    btn.classList.remove('on');
-  } else {
-    currentConfig.enabledDimensions.push(dimId);
-    btn.classList.add('on');
-  }
-  updateDimCountLabel();
 }
 
 function updateImportance(dimId, value) {

@@ -493,21 +493,14 @@ function renderDimensionRow(containerId, todayEntry, enabledDimensions) {
 // ─── Insights ───────────────────────────────────────────────────────────────
 
 function renderInsights() {
-  currentEntries = loadEntries();
+  // Insights showcases the archive (demo) data — illustrates what patterns
+  // emerge over time. Dashboard handles the user's own real entries.
+  const demo = generateDemoData();
+  currentEntries = demo.entries;
   const panelsContainer = document.getElementById('insight-panels');
 
-  if (currentEntries.length < 7) {
-    panelsContainer.innerHTML = `
-      <div class="card" style="text-align: center; padding: var(--space-xl);">
-        <p style="color: var(--text-muted);">At least 7 days of data are needed to reveal patterns.</p>
-        <p class="dim small" style="margin-top: var(--space-xs);">${currentEntries.length} day${currentEntries.length !== 1 ? 's' : ''} logged so far.</p>
-      </div>
-    `;
-    return;
-  }
-
   const correlations = calculateCorrelations(currentEntries, currentConfig.enabledDimensions);
-  const insights = generateInsights(correlations, currentConfig.importance, currentEntries);
+  const insights = generateInsights(correlations, demo.importance, currentEntries);
 
   panelsContainer.innerHTML = '';
 

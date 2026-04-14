@@ -311,7 +311,7 @@ h3 { font-size: 1.25rem; }
 
 /* Dimension setup card — stacked: info on top, slider full-width below */
 .dim-setup-card {
-  background: var(--bg-card);
+  background: #2a2520;
   border-radius: var(--radius);
   padding: var(--space-md);
   margin-bottom: 10px;
